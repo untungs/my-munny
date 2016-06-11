@@ -13,7 +13,7 @@ angular.module('app.routes', [])
       .state('menu.myMunny', {
     url: '/main',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/myMunny.html',
         controller: 'myMunnyCtrl'
       }
@@ -23,7 +23,7 @@ angular.module('app.routes', [])
   .state('menu.income', {
     url: '/income',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/income.html',
         controller: 'incomeCtrl'
       }
@@ -33,7 +33,7 @@ angular.module('app.routes', [])
   .state('menu.expense', {
     url: '/expense',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/expense.html',
         controller: 'expenseCtrl'
       }
@@ -43,7 +43,7 @@ angular.module('app.routes', [])
   .state('menu.editTransaction', {
     url: '/edit',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/editTransaction.html',
         controller: 'editTransactionCtrl'
       }
@@ -59,7 +59,7 @@ angular.module('app.routes', [])
   .state('menu.transactionDetail', {
     url: '/detail',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/transactionDetail.html',
         controller: 'transactionDetailCtrl'
       }
@@ -69,7 +69,7 @@ angular.module('app.routes', [])
   .state('menu.category', {
     url: '/category',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/category.html',
         controller: 'categoryCtrl'
       }
@@ -79,7 +79,7 @@ angular.module('app.routes', [])
   .state('menu.settings', {
     url: '/settings',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/settings.html',
         controller: 'settingsCtrl'
       }
@@ -89,7 +89,7 @@ angular.module('app.routes', [])
   .state('menu.account', {
     url: '/account',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/account.html',
         controller: 'accountCtrl'
       }
@@ -99,7 +99,7 @@ angular.module('app.routes', [])
   .state('menu.shareWallet', {
     url: '/sharewallet',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/shareWallet.html',
         controller: 'shareWalletCtrl'
       }
@@ -109,7 +109,7 @@ angular.module('app.routes', [])
   .state('menu.aboutApp', {
     url: '/about',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/aboutApp.html',
         controller: 'aboutAppCtrl'
       }
@@ -119,7 +119,7 @@ angular.module('app.routes', [])
   .state('menu.location', {
     url: '/location',
     views: {
-      'side-menu21': {
+      'view-content': {
         templateUrl: 'templates/location.html',
         controller: 'locationCtrl'
       }
