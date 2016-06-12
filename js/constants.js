@@ -63,6 +63,22 @@ angular.module('app.constants', [])
           "photo": "photo2.jpg"
         }
       },
+    },
+    "datethree": {
+      "date": "08 June 2016",
+      "amount": -12000,
+      "transactions": {
+        "datetwotransone": {
+          "type": "expense",
+          "uid": "johndoe",
+          "date": "08 June 2016",
+          "amount": 12000,
+          "category": "laundry",
+          "note": "",
+          "location": "-7.12,101.15",
+          "photo": ""
+        }
+      }
     }
   }
 })
