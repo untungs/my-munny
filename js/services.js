@@ -10,6 +10,18 @@ angular.module('app.services', [])
   return Transactions;
 })
 
+.factory('Wallet', function($firebaseObject) {
+  
+  var Wallet = {
+    getWallet: function(walletId) {
+      var ref = firebase.database().ref('wallets/' + walletId);
+      return $firebaseObject(ref);
+    }
+  };
+  
+  return Wallet;
+})
+
 .factory('Category', function(CATEGORY) {
   var Category = {
     getCategory: function(category) {

@@ -1,8 +1,16 @@
 angular.module('app.controllers', [])
   
-.controller('myMunnyCtrl', function($scope, Transactions, Category, Utils) {
-  console.log(Transactions.getWallet("walletidone"));
-  $scope.wallet = Transactions.getWallet("walletidone");
+.controller('myMunnyCtrl', function($scope, Wallet, Transactions, Category, Utils) {
+  // console.log(Transactions.getWallet("walletidone"));
+  // $scope.wallet = Transactions.getWallet("walletidone");
+  $scope.wallet = {
+    balance: 0,
+    income: 0,
+    expense: 0
+  };
+  
+  var syncObject = Wallet.getWallet("walletidone");
+  syncObject.$bindTo($scope, "wallet");
   
   $scope.getTotalBalance = function() {
     var balance = 0;

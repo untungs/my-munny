@@ -4,15 +4,15 @@
             <div class="row">
                 <div class="col text-center">
                     <span class="h4">Balance</span>
-                    <span class="h2">{{ utils.formatMoney(getTotalBalance()) }}</span>
+                    <span class="h2">{{ utils.formatMoney(wallet.balance) }}</span>
                 </div>
             </div>
         </div>
         <div id="myMunny-button-bar1" class=" button-bar">
-            <a ui-sref="menu.income" id="myMunny-button3" class=" button button-balanced  button-block icon-left ion-plus ">{{ utils.formatMoney(getTotalIncome()) }}</a>
-            <a ui-sref="menu.expense" id="myMunny-button4" class=" button button-assertive  button-block icon-left ion-minus ">{{ utils.formatMoney(getTotalExpense()) }}</a>
+            <a ui-sref="menu.income" id="myMunny-button3" class=" button button-balanced  button-block icon-left ion-plus ">{{ utils.formatMoney(wallet.income) }}</a>
+            <a ui-sref="menu.expense" id="myMunny-button4" class=" button button-assertive  button-block icon-left ion-minus ">{{ utils.formatMoney(wallet.expense) }}</a>
         </div>
-        <div class="list card" ng-repeat="(dayId, dayObj) in wallet" id="myMunny-{{ dayId }}">
+        <div class="list card" ng-repeat="(dayId, dayObj) in wallet.days" id="myMunny-{{ dayId }}">
             <ion-item id="dompetDigital-list-item9">
               {{ dayObj.date }}
                 <span class="badge" ng-class="{'badge-balanced': utils.isIncome(dayObj), 'badge-assertive': utils.isExpense(dayObj)}">
