@@ -1,7 +1,14 @@
 angular.module('app.controllers', [])
   
-.controller('myMunnyCtrl', function($scope) {
-
+.controller('myMunnyCtrl', function($scope, Transactions, Category, Utils) {
+  console.log(Transactions.getWallet("walletidone"));
+  $scope.wallet = Transactions.getWallet("walletidone");
+  
+  $scope.getCategory = function(category) {
+    return Category.getCategory(category);
+  };
+  
+  $scope.utils = Utils;
 })
    
 .controller('incomeCtrl', function($scope) {
