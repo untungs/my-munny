@@ -12,45 +12,6 @@ angular.module('app.controllers', [])
   var syncObject = Wallet.getWallet("walletidone");
   syncObject.$bindTo($scope, "wallet");
   
-  $scope.getTotalBalance = function() {
-    var balance = 0;
-    var days = Object.keys($scope.wallet);
-    
-    days.forEach(function(key) {
-      balance += $scope.wallet[key].amount;
-    });
-    
-    return balance;
-  };
-  
-  $scope.getTotalIncome = function() {
-    var balance = 0;
-    var days = Object.keys($scope.wallet);
-    
-    days.forEach(function(key) {
-      amount = $scope.wallet[key].amount;
-      if (amount > 0) {
-        balance += amount;
-      }
-    });
-    
-    return balance;
-  };
-  
-  $scope.getTotalExpense = function() {
-    var balance = 0;
-    var days = Object.keys($scope.wallet);
-    
-    days.forEach(function(key) {
-      amount = $scope.wallet[key].amount;
-      if (amount < 0) {
-        balance += Math.abs(amount);
-      }
-    });
-    
-    return balance;
-  };
-  
   $scope.getCategory = function(category) {
     return Category.getCategory(category);
   };
