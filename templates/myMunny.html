@@ -20,8 +20,8 @@
                 </span>
             </ion-item>
             <ion-item class="item-icon-left" ng-repeat="(transactionId, transactionObj) in dayObj.transactions" id="myMunny-list-{{ transactionId }}" ui-sref="menu.transactionDetail">
-                <i class="icon {{ getCategory(transactionObj.category).icon }}"></i>
-                {{ getCategory(transactionObj.category).name }}
+                <i class="icon {{ getCategoryDetail(transactionObj.category).icon }}"></i>
+                {{ getCategoryDetail(transactionObj.category).name }}
                 <span class="item-note" ng-class="{'balanced': utils.isIncome(transactionObj), 'assertive': utils.isExpense(transactionObj)}">
                   {{ utils.formatMoney(transactionObj.amount) }}
                 </span>

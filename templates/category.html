@@ -1,7 +1,7 @@
 <ion-view title="Category" id="page9" class=" ">
     <ion-content padding="true" class="has-header">
         <ion-list id="category-list10" class=" ">
-            <ion-item class="item-icon-left" ng-repeat="(key, category) in categories" id="category-list-{{ key }}">
+            <ion-item class="item-icon-left" ng-repeat="(key, category) in categories" ng-click="selectCategory(key)" id="category-list-{{ key }}">
                 <i class="icon" ng-class="category.icon"></i>{{ category.name }}
             </ion-item>
         </ion-list>

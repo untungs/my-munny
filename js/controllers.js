@@ -12,21 +12,33 @@ angular.module('app.controllers', [])
   var syncObject = Wallet.getWallet("walletidone");
   syncObject.$bindTo($scope, "wallet");
   
-  $scope.getCategory = function(category) {
-    return Category.getCategory(category);
+  $scope.getCategoryDetail = function(category) {
+    return Category.getCategoryDetail(category);
   };
   
   $scope.utils = Utils;
 })
    
-.controller('transactionCtrl', function($scope, Wallet, $state) {
+.controller('transactionCtrl', function($scope, Wallet, Category, $state) {
+  $scope.category = Category;
+  $scope.transaction = {};
+  
+  $scope.$watch('category', function() {
+    $scope.transaction.category = $scope.category.selectedCategory;
+  }, true);
+  
   $scope.addTransaction = function(transaction) {
     if (angular.isDefined(transaction)) {
       Wallet.addTransaction("walletidone", "datethree", transaction)
           .then(function() {
             $state.go('menu.myMunny');
+            $scope.category.selectedCategory = "";
           });
     }
+  };
+  
+  $scope.getCategoryDetail = function(category) {
+    return Category.getCategoryDetail(category);
   };
 })
    
@@ -34,12 +46,19 @@ angular.module('app.controllers', [])
 
 })
       
-.controller('transactionDetailCtrl', function($scope) {
-
+.controller('transactionDetailCtrl', function($scope, Category) {
+  
 })
    
-.controller('categoryCtrl', function($scope, Category) {
+.controller('categoryCtrl', function($scope, $ionicHistory, Category) {
   $scope.categories = Category.getAllCategories();
+  $scope.category = Category;
+  
+  $scope.selectCategory = function(category) {
+    $scope.category.selectedCategory = category;
+    console.log($scope.category.selectedCategory, Category.selectedCategory);
+    $ionicHistory.goBack();
+  }
 })
    
 .controller('settingsCtrl', function($scope) {

@@ -32,9 +32,8 @@ angular.module('app.services', [])
 })
 
 .factory('Category', function(CATEGORY) {
-  var selectedCategory;
-  
   var Category = {
+    selectedCategory: "",
     getAllCategories: function() {
       return CATEGORY;
     },
@@ -45,7 +44,7 @@ angular.module('app.services', [])
       return selectedCategory;
     },
     setSelectedCategory: function(category) {
-      selectedCategory = category;
+      this.selectedCategory = category;
     }
   };
   
