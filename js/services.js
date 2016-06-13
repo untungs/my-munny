@@ -11,11 +11,20 @@ angular.module('app.services', [])
 })
 
 .factory('Wallet', function($firebaseObject) {
+  var ref = firebase.database().ref();
   
   var Wallet = {
     getWallet: function(walletId) {
-      var ref = firebase.database().ref('wallets/' + walletId);
-      return $firebaseObject(ref);
+      var walletRef = ref.child('wallets/' + walletId);
+      return $firebaseObject(walletRef);
+    },
+    
+    addTransaction: function(walletId, dayId, transaction) {
+      var transactionRef = ref.child("wallets/" + walletId + "/days/" + dayId + "/transactions");
+      var newKey = transactionRef.push().key;
+      
+      console.log(newKey, transaction);
+      return transactionRef.child(newKey).update(transaction);
     }
   };
   
