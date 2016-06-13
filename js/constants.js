@@ -130,4 +130,29 @@ angular.module('app.constants', [])
     "type": "income",
     "icon": "ion-cash"
   },
+  "game": {
+    "name": "Game",
+    "type": "expense",
+    "icon": "ion-ios-game-controller-b"
+  },
+  "internet": {
+    "name": "Internet",
+    "type": "expense",
+    "icon": "ion-wifi"
+  },
+  "electronic": {
+    "name": "Electronic",
+    "type": "expense",
+    "icon": "ion-outlet"
+  },
+  "pet": {
+    "name": "Pet",
+    "type": "expense",
+    "icon": "ion-ios-paw"
+  },
+  "other": {
+    "name": "Other",
+    "type": "expense",
+    "icon": "ion-android-star"
+  },
 })

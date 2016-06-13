@@ -38,8 +38,8 @@ angular.module('app.controllers', [])
 
 })
    
-.controller('categoryCtrl', function($scope) {
-
+.controller('categoryCtrl', function($scope, Category) {
+  $scope.categories = Category.getAllCategories();
 })
    
 .controller('settingsCtrl', function($scope) {

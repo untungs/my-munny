@@ -1,28 +1,9 @@
 <ion-view title="Category" id="page9" class=" ">
     <ion-content padding="true" class="has-header">
         <ion-list id="category-list10" class=" ">
-            <ion-item class="item-icon-left  " id="category-list-item19">
-                <i class="icon ion-spoon"></i>Eating out</ion-item>
-            <ion-item class="item-icon-left  " id="category-list-item23">
-                <i class="icon ion-android-bus"></i>Transportation</ion-item>
-            <ion-item class="item-icon-left  " id="category-list-item24">
-                <i class="icon ion-model-s"></i>Fuel</ion-item>
-            <ion-item class="item-icon-left  " id="category-list-item25">
-                <i class="icon ion-iphone"></i>Phone Credit</ion-item>
-            <ion-item class="item-icon-left  " id="category-list-item26">
-                <i class="icon ion-tshirt"></i>Laundry</ion-item>
-            <ion-item class="item-icon-left  " id="category-list-item27">
-                <i class="icon ion-android-film"></i>Cinema</ion-item>
-            <ion-item class="item-icon-left  " id="category-list-item28">
-                <i class="icon ion-ios-game-controller-b"></i>Game</ion-item>
-            <ion-item class="item-icon-left  " id="category-list-item29">
-                <i class="icon ion-wifi"></i>Internet</ion-item>
-            <ion-item class="item-icon-left  " id="category-list-item30">
-                <i class="icon ion-outlet"></i>Electronic</ion-item>
-            <ion-item class="item-icon-left  " id="category-list-item8">
-                <i class="icon ion-ios-paw"></i>Pet</ion-item>
-            <ion-item class="item-icon-left  " id="category-list-item9">
-                <i class="icon ion-android-star"></i>Other</ion-item>
+            <ion-item class="item-icon-left" ng-repeat="(key, category) in categories" id="category-list-{{ key }}">
+                <i class="icon" ng-class="category.icon"></i>{{ category.name }}
+            </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>
