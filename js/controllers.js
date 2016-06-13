@@ -19,12 +19,15 @@ angular.module('app.controllers', [])
   $scope.utils = Utils;
 })
    
-.controller('incomeCtrl', function($scope) {
-
-})
-   
-.controller('expenseCtrl', function($scope) {
-
+.controller('transactionCtrl', function($scope, Wallet, $state) {
+  $scope.addTransaction = function(transaction) {
+    if (angular.isDefined(transaction)) {
+      Wallet.addTransaction("walletidone", "datethree", transaction)
+          .then(function() {
+            $state.go('menu.myMunny');
+          });
+    }
+  };
 })
    
 .controller('editTransactionCtrl', function($scope) {
