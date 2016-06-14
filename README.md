@@ -1,6 +1,10 @@
 # My Munny
 
+*In development*
+
 A simple hybrid application to track daily income and expense. Built with Ionic and Firebase.
+
+![](banner.jpg)
 
 ## Demo
 
