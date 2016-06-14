@@ -75,6 +75,19 @@ angular.module('app.services', [])
   return Utils;
 })
 
+.factory('Team', function($firebaseObject) {
+  var ref = firebase.database().ref();
+  
+  var Team = {
+    getTeam: function() {
+      var teamRef = ref.child('team');
+      return $firebaseObject(teamRef);
+    }
+  };
+  
+  return Team;
+})
+
 .factory('BlankFactory', [function(){
 
 }])

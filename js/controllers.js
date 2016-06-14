@@ -73,8 +73,11 @@ angular.module('app.controllers', [])
 
 })
    
-.controller('aboutAppCtrl', function($scope) {
-
+.controller('aboutAppCtrl', function($scope, Team) {
+  $scope.team = {};
+  
+  var syncObject = Team.getTeam();
+  syncObject.$bindTo($scope, "team");
 })
    
 .controller('locationCtrl', function($scope) {
