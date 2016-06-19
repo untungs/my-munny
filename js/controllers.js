@@ -14,7 +14,7 @@ angular.module('app.controllers', [])
   
   syncWallet.$loaded(
     function(data) {
-      $scope.loadWallet({ year: 'numeric', month: 'long', day: 'numeric' });
+      $scope.loadWallet(Utils.dateFormat);
     },
     function(error) {
       console.error("Error:", error);
@@ -22,7 +22,7 @@ angular.module('app.controllers', [])
   );
   
   $scope.$watch('rawWalletData', function() {
-    $scope.loadWallet({ year: 'numeric', month: 'long', day: 'numeric' });
+    $scope.loadWallet(Utils.dateFormat);
   }, true);
   
   $scope.loadWallet = function(dateOption) {
@@ -143,7 +143,21 @@ angular.module('app.controllers', [])
   syncObject.$bindTo($scope, "team");
 })
    
-.controller('locationCtrl', function($scope) {
-
+.controller('locationCtrl', function($scope, $stateParams, $cordovaGeolocation, Wallet, Category, Maps, Utils) {
+  $scope.transaction = {};
+  
+  var syncTransaction = Wallet.getTransaction($stateParams.walletId, $stateParams.transactionId);
+  syncTransaction.$bindTo($scope, "transaction");
+  
+  syncTransaction.$loaded(
+    function(data) {
+      $scope.transaction.categoryName = Category.getCategoryDetail($scope.transaction.category).name;
+      $scope.transaction.dateString = new Date($scope.transaction.dateTime).toLocaleDateString('id-ID', Utils.dateFormat);
+      Maps.loadLocation(document.getElementById("map"), $scope.transaction);
+    },
+    function(error) {
+      console.error("Error:", error);
+    }
+  );
 })
  

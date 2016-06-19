@@ -25,6 +25,11 @@ angular.module('app.services', [])
       
       console.log(newKey, transaction);
       return transactionRef.child(newKey).set(transaction);
+    },
+    
+    getTransaction: function(walletId, transactionId) {
+      var transactionRef = ref.child("wallet-transactions/" + walletId + "/" + transactionId);
+      return $firebaseObject(transactionRef);
     }
   };
   
@@ -51,6 +56,50 @@ angular.module('app.services', [])
   return Category;
 })
 
+.factory('Maps', function($cordovaGeolocation) {
+  var map = {}
+  var latLng = {};
+  
+  var Maps = {
+    loadLocation: function(mapElement, transaction) {
+      var options = {timeout: 10000, enableHighAccuracy: true};
+      latLng = new google.maps.LatLng(transaction.location.latitude, transaction.location.longitude);
+
+      var mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+   
+      map = new google.maps.Map(mapElement, mapOptions);
+      
+      google.maps.event.addListenerOnce(map, 'idle', function() {
+        loadMarker(transaction);
+      });
+    }
+  };
+  
+  var loadMarker = function(transaction) {
+    var marker = new google.maps.Marker({
+      map: map,
+      animation: google.maps.Animation.DROP,
+      position: latLng
+    });
+
+    var infoWindow = new google.maps.InfoWindow({
+      content: transaction.categoryName + "<br>" +
+        transaction.dateString + "<br>" + 
+        transaction.note
+    });
+    
+    google.maps.event.addListener(marker, 'click', function () {
+      infoWindow.open(map, marker);
+    });
+  };
+  
+  return Maps;
+})
+
 .factory('Utils', function() {
   var Utils = {
     formatMoney: function(amount) {
@@ -71,7 +120,8 @@ angular.module('app.services', [])
       } else {
         return transaction < 0;
       }
-    }
+    },
+    dateFormat: { year: 'numeric', month: 'long', day: 'numeric' }
   };
   
   return Utils;

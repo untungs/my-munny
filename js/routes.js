@@ -123,7 +123,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.location', {
-    url: '/location',
+    url: '/location/:walletId/:transactionId',
     views: {
       'view-content': {
         templateUrl: 'templates/location.html',
