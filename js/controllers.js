@@ -80,7 +80,6 @@ angular.module('app.controllers', [])
     if (angular.isDefined(transaction)) {
       transaction.uid = "johndoe";
       transaction.timestamp = Date.now();
-      transaction.order = 0 - transaction.timestamp;
       
       Wallet.addTransaction("walletidone", transaction)
           .then(function() {
