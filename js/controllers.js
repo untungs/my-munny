@@ -1,16 +1,65 @@
 angular.module('app.controllers', [])
   
 .controller('myMunnyCtrl', function($scope, Wallet, Transactions, Category, Utils) {
-  // console.log(Transactions.getWallet("walletidone"));
-  // $scope.wallet = Transactions.getWallet("walletidone");
-  $scope.wallet = {
+  $scope.rawWalletData = {};
+  $scope.wallet = {};
+  $scope.total = {
     balance: 0,
     income: 0,
     expense: 0
   };
   
-  var syncObject = Wallet.getWallet("walletidone");
-  syncObject.$bindTo($scope, "wallet");
+  var syncWallet = Wallet.getWallet("walletidone");
+  syncWallet.$bindTo($scope, "rawWalletData");
+  
+  syncWallet.$loaded(
+    function(data) {
+      $scope.loadWallet({ year: 'numeric', month: 'long', day: 'numeric' });
+    },
+    function(error) {
+      console.error("Error:", error);
+    }
+  );
+  
+  $scope.$watch('rawWalletData', function() {
+    $scope.loadWallet({ year: 'numeric', month: 'long', day: 'numeric' });
+  }, true);
+  
+  $scope.loadWallet = function(dateOption) {
+    var wallet = {};
+    var total = {
+      balance: 0,
+      income: 0,
+      expense: 0
+    };
+    
+    for (var transaction in $scope.rawWalletData) {
+      var transactionData = $scope.rawWalletData[transaction];
+      
+      if (transactionData && transactionData.hasOwnProperty('timestamp')) {
+        var date = new Date(transactionData.timestamp).toLocaleDateString('id-ID', dateOption);
+        var dateId = date.replace(/[\s]/g, '');
+        var amount = transactionData.amount;
+        
+        if (!wallet[dateId]) {
+          wallet[dateId] = {
+            "dateString": date,
+            "total": 0,
+            "transactions": {}
+          };
+        }
+        
+        wallet[dateId].transactions[transaction] = transactionData;
+        wallet[dateId]["total"] += amount;
+        total.balance += amount;
+        total.income += (amount > 0) ? amount : 0;
+        total.expense += (amount < 0) ? -amount : 0;
+      }
+    }
+    $scope.wallet = wallet;
+    $scope.total = total;
+    console.log($scope.wallet);
+  }
   
   $scope.getCategoryDetail = function(category) {
     return Category.getCategoryDetail(category);
@@ -29,7 +78,11 @@ angular.module('app.controllers', [])
   
   $scope.addTransaction = function(transaction) {
     if (angular.isDefined(transaction)) {
-      Wallet.addTransaction("walletidone", "datethree", transaction)
+      transaction.uid = "johndoe";
+      transaction.timestamp = Date.now();
+      transaction.order = 0 - transaction.timestamp;
+      
+      Wallet.addTransaction("walletidone", transaction)
           .then(function() {
             $state.go('menu.myMunny');
             $scope.category.selectedCategory = "";

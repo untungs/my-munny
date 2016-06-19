@@ -4,26 +4,26 @@
             <div class="row">
                 <div class="col text-center">
                     <span class="h4">Balance</span>
-                    <span class="h2">{{ utils.formatMoney(wallet.balance) }}</span>
+                    <span class="h2">{{ utils.formatMoney(total.balance) }}</span>
                 </div>
             </div>
         </div>
         <div id="myMunny-button-bar1" class=" button-bar">
-            <a ui-sref="menu.income" id="myMunny-button3" class=" button button-balanced  button-block icon-left ion-plus ">{{ utils.formatMoney(wallet.income) }}</a>
-            <a ui-sref="menu.expense" id="myMunny-button4" class=" button button-assertive  button-block icon-left ion-minus ">{{ utils.formatMoney(wallet.expense) }}</a>
+            <a ui-sref="menu.income" id="myMunny-button3" class=" button button-balanced  button-block icon-left ion-plus ">{{ utils.formatMoney(total.income) }}</a>
+            <a ui-sref="menu.expense" id="myMunny-button4" class=" button button-assertive  button-block icon-left ion-minus ">{{ utils.formatMoney(total.expense) }}</a>
         </div>
-        <div class="list card" ng-repeat="(dayId, dayObj) in wallet.days" id="myMunny-{{ dayId }}">
+        <div class="list card" ng-repeat="(dateId, date) in wallet" id="myMunny-{{ dateId }}">
             <ion-item id="dompetDigital-list-item9">
-              {{ dayObj.date }}
-                <span class="badge" ng-class="{'badge-balanced': utils.isIncome(dayObj), 'badge-assertive': utils.isExpense(dayObj)}">
-                  {{ utils.formatMoney(dayObj.amount) }}
+              {{ date.dateString }}
+                <span class="badge" ng-class="{'badge-balanced': utils.isIncome(date.total), 'badge-assertive': utils.isExpense(date.total)}">
+                  {{ utils.formatMoney(date.total) }}
                 </span>
             </ion-item>
-            <ion-item class="item-icon-left" ng-repeat="(transactionId, transactionObj) in dayObj.transactions" id="myMunny-list-{{ transactionId }}" ui-sref="menu.transactionDetail">
-                <i class="icon {{ getCategoryDetail(transactionObj.category).icon }}"></i>
-                {{ getCategoryDetail(transactionObj.category).name }}
-                <span class="item-note" ng-class="{'balanced': utils.isIncome(transactionObj), 'assertive': utils.isExpense(transactionObj)}">
-                  {{ utils.formatMoney(transactionObj.amount) }}
+            <ion-item class="item-icon-left" ng-repeat="(transactionId, transactionData) in date.transactions" id="myMunny-list-{{ transactionId }}" ui-sref="menu.transactionDetail">
+                <i class="icon {{ getCategoryDetail(transactionData.category).icon }}"></i>
+                {{ getCategoryDetail(transactionData.category).name }}
+                <span class="item-note" ng-class="{'balanced': utils.isIncome(transactionData), 'assertive': utils.isExpense(transactionData)}">
+                  {{ utils.formatMoney(transactionData.amount) }}
                 </span>
             </ion-item>
         </div>

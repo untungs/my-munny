@@ -11,20 +11,20 @@ angular.module('app.services', [])
 })
 
 .factory('Wallet', function($firebaseObject) {
-  var ref = firebase.database().ref();
+  var ref = firebase.database().ref("data");
   
   var Wallet = {
     getWallet: function(walletId) {
-      var walletRef = ref.child('wallets/' + walletId);
-      return $firebaseObject(walletRef);
+      var transactionRef = ref.child('wallet-transactions/' + walletId);
+      return $firebaseObject(transactionRef);
     },
     
-    addTransaction: function(walletId, dayId, transaction) {
-      var transactionRef = ref.child("wallets/" + walletId + "/days/" + dayId + "/transactions");
+    addTransaction: function(walletId, transaction) {
+      var transactionRef = ref.child("wallet-transactions/" + walletId);
       var newKey = transactionRef.push().key;
       
       console.log(newKey, transaction);
-      return transactionRef.child(newKey).update(transaction);
+      return transactionRef.child(newKey).set(transaction);
     }
   };
   
@@ -60,14 +60,14 @@ angular.module('app.services', [])
       if (transaction.type) {
         return transaction.type === "income";
       } else {
-        return transaction.amount >= 0;
+        return transaction >= 0;
       }
     },
     isExpense: function(transaction) {
       if (transaction.type) {
         return transaction.type === "expense";
       } else {
-        return transaction.amount < 0;
+        return transaction < 0;
       }
     }
   };
