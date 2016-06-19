@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col text-center">
                     <span class="h4">Balance</span>
-                    <span class="h2">{{ utils.formatMoney(total.balance) }}</span>
+                    <span class="h2" ng-class="{'assertive': utils.isExpense(total.balance)}">{{ utils.formatMoney(total.balance) }}</span>
                 </div>
             </div>
         </div>

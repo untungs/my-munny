@@ -54,7 +54,9 @@ angular.module('app.services', [])
 .factory('Utils', function() {
   var Utils = {
     formatMoney: function(amount) {
-      return "Rp " + Math.abs(amount).toLocaleString('id-ID');
+      var formatted = (amount < 0) ? "-" : "";
+      formatted += "Rp " + Math.abs(amount).toLocaleString('id-ID');
+      return formatted;
     },
     isIncome: function(transaction) {
       if (transaction.type) {
