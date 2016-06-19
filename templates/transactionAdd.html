@@ -1,33 +1,33 @@
 <ion-view title="{{ typeName }}" id="page2">
     <ion-content padding="true" class="has-header">
       <form name="addTransactionForm" ng-submit="addTransaction(transaction)">
-        <div class="list card " id="income-card25">
-            <ion-list id="income-list13">
-                <label class="item item-input " id="income-input14">
+        <div class="list card">
+            <ion-list>
+                <label class="item item-input">
                     <span class="input-label">Date</span>
                     <input type="date" ng-model="formData.date">
                 </label>
-                <label class="item item-input " id="income-input13">
+                <label class="item item-input">
                     <span class="input-label">Amount Rp</span>
                     <input type="number" ng-model="transaction.amount">
                 </label>
-                <ion-item ng-class="{'item-icon-left': transaction.category}" id="income-list-item49" ui-sref="menu.category">
+                <ion-item ng-class="{'item-icon-left': transaction.category}" ui-sref="menu.category">
                   <i class="icon {{ getCategoryDetail(transaction.category).icon }}" ng-if="transaction.category"></i>
                   {{ transaction.category != "" ? getCategoryDetail(transaction.category).name : 'Category'}}
                   <input type="hidden" ng-model="transaction.category">
                 </ion-item>
-                <label class="item item-input " id="income-textarea5">
+                <label class="item item-input">
                     <span class="input-label">Note</span>
                     <textarea ng-model="transaction.note"></textarea>
                 </label>
-                <ion-toggle toggle-class="toggle-positive" id="income-toggle1" ng-model="transaction.saveLocation">Save Location</ion-toggle>
+                <ion-toggle toggle-class="toggle-positive" ng-model="transaction.saveLocation">Save Location</ion-toggle>
             </ion-list>
-            <ion-item id="income-list-item12">Attach Photo</ion-item>
+            <ion-item>Attach Photo</ion-item>
             <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
                 <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
             </div>
         </div>
-        <input type="submit" value="Save" id="income-button7" class=" button button-balanced  button-block ">
+        <input type="submit" value="Save" class="button button-balanced  button-block">
       </form>
     </ion-content>
 </ion-view>
