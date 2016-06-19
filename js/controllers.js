@@ -44,6 +44,7 @@ angular.module('app.controllers', [])
         if (!wallet[dateId]) {
           wallet[dateId] = {
             "dateString": date,
+            "dateTime": transactionData.dateTime,
             "total": 0,
             "transactions": {}
           };

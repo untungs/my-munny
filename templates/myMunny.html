@@ -12,7 +12,7 @@
             <a ui-sref="menu.income" id="myMunny-button3" class=" button button-balanced  button-block icon-left ion-plus ">{{ utils.formatMoney(total.income) }}</a>
             <a ui-sref="menu.expense" id="myMunny-button4" class=" button button-assertive  button-block icon-left ion-minus ">{{ utils.formatMoney(total.expense) }}</a>
         </div>
-        <div class="list card" ng-repeat="date in wallet | orderObjectBy:'key':true" id="myMunny-{{ date.key }}">
+        <div class="list card" ng-repeat="date in wallet | orderObjectBy:'dateTime':true" id="myMunny-{{ date.key }}">
             <ion-item id="dompetDigital-list-item9">
               {{ date.dateString }}
                 <span class="badge" ng-class="{'badge-balanced': utils.isIncome(date.total), 'badge-assertive': utils.isExpense(date.total)}">
