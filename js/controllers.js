@@ -74,7 +74,7 @@ angular.module('app.controllers', [])
   $scope.utils = Utils;
 })
    
-.controller('transactionCtrl', function($scope, Wallet, Category, $state, $stateParams) {
+.controller('transactionCtrl', function($scope, Wallet, Category, $state, $stateParams, $cordovaGeolocation) {
   $scope.category = Category;
   $scope.transaction = {
     "date": new Date()
@@ -85,12 +85,22 @@ angular.module('app.controllers', [])
     $scope.transaction.category = $scope.category.selectedCategory;
   }, true);
   
+  var options = {timeout: 10000, enableHighAccuracy: true};
+  var location = {};
+  $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
+    location.latitude = position.coords.latitude;
+    location.longitude = position.coords.longitude;
+  });
+  
   $scope.addTransaction = function(transaction) {
     if (angular.isDefined(transaction)) {
       transaction.uid = "johndoe";
       transaction.created = Date.now();
       transaction.dateTime = transaction.date.getTime();
       transaction.type = $stateParams.type;
+      if (transaction.saveLocation) {
+        transaction.location = location;
+      }
       
       Wallet.addTransaction("walletidone", transaction)
           .then(function() {
@@ -143,7 +153,7 @@ angular.module('app.controllers', [])
   syncObject.$bindTo($scope, "team");
 })
    
-.controller('locationCtrl', function($scope, $stateParams, $cordovaGeolocation, Wallet, Category, Maps, Utils) {
+.controller('locationCtrl', function($scope, $stateParams, Wallet, Category, Maps, Utils) {
   $scope.transaction = {};
   
   var syncTransaction = Wallet.getTransaction($stateParams.walletId, $stateParams.transactionId);
