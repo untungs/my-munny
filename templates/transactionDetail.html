@@ -1,31 +1,31 @@
 <ion-view title="Transaction Detail" id="page4">
     <ion-content padding="true" class="has-header">
-        <div class="list card" id="transactionDetail-card27">
-            <ion-list id="transactionDetail-list15">
-                <ion-item class="item-avatar" id="transactionDetail-list-item41">
+        <div class="list card">
+            <ion-list>
+                <ion-item class="item-avatar">
                     <h2>John Doe</h2>
                 </ion-item>
-                <ion-item class="item-icon-left" id="transactionDetail-list-item42">
+                <ion-item class="item-icon-left">
                     <i class="icon ion-android-calendar"></i>{{ dateString }}</ion-item>
                 </ion-item>
-                <ion-item class="item-icon-left" id="transactionDetail-list-item47">
+                <ion-item class="item-icon-left">
                     <i class="icon {{ category.icon }}"></i>{{ category.name }}</ion-item>
-                <ion-item class="item-icon-left" id="transactionDetail-list-item43">
+                <ion-item class="item-icon-left">
                     <i class="icon ion-social-usd"></i>
                     <span ng-class="amount.color">{{ amount.formatted }}</span>
                 </ion-item>
-                <div class="item item-body" id="transactionDetail-list-item-container8">
-                    <p id="transactionDetail-markdown7" style="margin-top:0px;color:#000000;">{{ transaction.note }}</p>
+                <div class="item item-body">
+                    <p>{{ transaction.note }}</p>
                 </div>
             </ion-list>
-            <ion-item class="item-icon-left" ng-if="transaction.saveLocation" id="transactionDetail-list-item46" ui-sref="menu.location({walletId: 'walletidone', transactionId: transaction.key})">
+            <ion-item class="item-icon-left" ng-if="transaction.saveLocation" ui-sref="menu.location({walletId: 'walletidone', transactionId: transaction.key})">
                 <i class="icon ion-location"></i>Location
             </ion-item>
             <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
                 <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
             </div>
         </div>
-        <a ui-sref="menu.editTransaction" id="transactionDetail-button5" class=" button button-positive  button-block">Edit</a>
-        <button id="transactionDetail-button6" class=" button button-assertive  button-block">Delete</button>
+        <a ui-sref="menu.editTransaction" class="button button-positive  button-block">Edit</a>
+        <button class=" button button-assertive  button-block">Delete</button>
     </ion-content>
 </ion-view>
