@@ -6,16 +6,21 @@
                     <h2>John Doe</h2>
                 </ion-item>
                 <ion-item class="item-icon-left" id="transactionDetail-list-item42">
-                    <i class="icon ion-android-calendar"></i>07 June 2016</ion-item>
+                    <i class="icon ion-android-calendar"></i>{{ dateString }}</ion-item>
+                </ion-item>
+                <ion-item class="item-icon-left" id="transactionDetail-list-item47">
+                    <i class="icon {{ category.icon }}"></i>{{ category.name }}</ion-item>
                 <ion-item class="item-icon-left" id="transactionDetail-list-item43">
-                    <i class="icon ion-social-usd"></i>Rp 10.000</ion-item>
+                    <i class="icon ion-social-usd"></i>
+                    <span ng-class="amount.color">{{ amount.formatted }}</span>
+                </ion-item>
                 <div class="item item-body" id="transactionDetail-list-item-container8">
-                    <p id="transactionDetail-markdown7" style="margin-top:0px;color:#000000;">Long description
-                        <strong>lorem</strong>ipsum sir dolor amet hahaha. Long description lorem ipsum sir dolor amet hahaha. Long description lorem ipsum sir dolor amet hahaha.</p>
+                    <p id="transactionDetail-markdown7" style="margin-top:0px;color:#000000;">{{ transaction.note }}</p>
                 </div>
             </ion-list>
-            <ion-item class="item-icon-left" id="transactionDetail-list-item46" ui-sref="menu.location({walletId: 'walletidone', transactionId: '-KKcZd178ldL4PugJQyO'})">
-                <i class="icon ion-location"></i>Location</ion-item>
+            <ion-item class="item-icon-left" ng-if="transaction.saveLocation" id="transactionDetail-list-item46" ui-sref="menu.location({walletId: 'walletidone', transactionId: transaction.key})">
+                <i class="icon ion-location"></i>Location
+            </ion-item>
             <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
                 <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
             </div>

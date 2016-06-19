@@ -19,7 +19,7 @@
                   {{ utils.formatMoney(date.total) }}
                 </span>
             </ion-item>
-            <ion-item class="item-icon-left" ng-repeat="transactionData in date.transactions | orderObjectBy:'dateTime':true" id="myMunny-list-{{ transactionData.key }}" ui-sref="menu.transactionDetail">
+            <ion-item class="item-icon-left" ng-repeat="transactionData in date.transactions | orderObjectBy:'dateTime':true" id="myMunny-list-{{ transactionData.key }}" ui-sref="menu.transactionDetail({walletId: 'walletidone', transactionId: transactionData.key})">
                 <i class="icon {{ getCategoryDetail(transactionData.category).icon }}"></i>
                 {{ getCategoryDetail(transactionData.category).name }}
                 <span class="item-note" ng-class="{'balanced': utils.isIncome(transactionData), 'assertive': utils.isExpense(transactionData)}">

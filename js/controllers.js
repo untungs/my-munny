@@ -14,7 +14,7 @@ angular.module('app.controllers', [])
   
   syncWallet.$loaded(
     function(data) {
-      $scope.loadWallet(Utils.dateFormat);
+      $scope.loadWallet();
     },
     function(error) {
       console.error("Error:", error);
@@ -22,10 +22,10 @@ angular.module('app.controllers', [])
   );
   
   $scope.$watch('rawWalletData', function() {
-    $scope.loadWallet(Utils.dateFormat);
+    $scope.loadWallet();
   }, true);
   
-  $scope.loadWallet = function(dateOption) {
+  $scope.loadWallet = function() {
     var wallet = {};
     var total = {
       balance: 0,
@@ -37,7 +37,7 @@ angular.module('app.controllers', [])
       var transactionData = $scope.rawWalletData[transaction];
       
       if (transactionData && transactionData.hasOwnProperty('dateTime')) {
-        var date = new Date(transactionData.dateTime).toLocaleDateString('id-ID', dateOption);
+        var date = Utils.timeToDateString(transactionData.dateTime);
         var dateId = date.replace(/[\s]/g, '');
         var amount = transactionData.amount;
         
@@ -119,8 +119,26 @@ angular.module('app.controllers', [])
 
 })
       
-.controller('transactionDetailCtrl', function($scope, Category) {
+.controller('transactionDetailCtrl', function($scope, $stateParams, Wallet, Category, Utils) {
+  $scope.transaction = {};
+  $scope.category = {};
+  $scope.amount = {};
+  $scope.dateString;
   
+  var syncTransaction = Wallet.getTransaction($stateParams.walletId, $stateParams.transactionId);
+  syncTransaction.$bindTo($scope, "transaction");
+  
+  syncTransaction.$loaded(
+    function(data) {
+      $scope.category = Category.getCategoryDetail($scope.transaction.category);
+      $scope.dateString = Utils.timeToDateString($scope.transaction.dateTime);
+      $scope.amount.formatted = Utils.formatMoney($scope.transaction.amount);
+      $scope.amount.color = Utils.isIncome(data) ? "balanced" : "assertive";
+    },
+    function(error) {
+      console.error("Error:", error);
+    }
+  );
 })
    
 .controller('categoryCtrl', function($scope, $ionicHistory, Category) {
@@ -162,7 +180,7 @@ angular.module('app.controllers', [])
   syncTransaction.$loaded(
     function(data) {
       $scope.transaction.categoryName = Category.getCategoryDetail($scope.transaction.category).name;
-      $scope.transaction.dateString = new Date($scope.transaction.dateTime).toLocaleDateString('id-ID', Utils.dateFormat);
+      $scope.transaction.dateString = Utils.timeToDateString($scope.transaction.dateTime);
       Maps.loadLocation(document.getElementById("map"), $scope.transaction);
     },
     function(error) {

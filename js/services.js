@@ -121,7 +121,10 @@ angular.module('app.services', [])
         return transaction < 0;
       }
     },
-    dateFormat: { year: 'numeric', month: 'long', day: 'numeric' }
+    dateFormat: { year: 'numeric', month: 'long', day: 'numeric' },
+    timeToDateString: function(timestamp) {
+      return new Date(timestamp).toLocaleDateString('id-ID', this.dateFormat);
+    }
   };
   
   return Utils;

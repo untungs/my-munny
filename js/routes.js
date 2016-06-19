@@ -63,7 +63,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.transactionDetail', {
-    url: '/detail',
+    url: '/transactionDetail/:walletId/:transactionId',
     views: {
       'view-content': {
         templateUrl: 'templates/transactionDetail.html',
