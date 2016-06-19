@@ -27,6 +27,9 @@ angular.module('app.routes', [])
         templateUrl: 'templates/income.html',
         controller: 'transactionCtrl'
       }
+    },
+    params: {
+      type: 'income'
     }
   })
 
@@ -34,9 +37,12 @@ angular.module('app.routes', [])
     url: '/expense',
     views: {
       'view-content': {
-        templateUrl: 'templates/expense.html',
+        templateUrl: 'templates/income.html',
         controller: 'transactionCtrl'
       }
+    },
+    params: {
+      type: 'expense'
     }
   })
 

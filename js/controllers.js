@@ -50,10 +50,16 @@ angular.module('app.controllers', [])
         }
         
         wallet[dateId].transactions[transaction] = transactionData;
-        wallet[dateId]["total"] += amount;
-        total.balance += amount;
-        total.income += (amount > 0) ? amount : 0;
-        total.expense += (amount < 0) ? -amount : 0;
+        
+        if (Utils.isIncome(transactionData)) {
+          wallet[dateId]["total"] += amount;
+          total.balance += amount;
+          total.income += amount;
+        } else {
+          wallet[dateId]["total"] -= amount;
+          total.balance -= amount;
+          total.expense += amount;
+        }
       }
     }
     $scope.wallet = wallet;
@@ -68,9 +74,10 @@ angular.module('app.controllers', [])
   $scope.utils = Utils;
 })
    
-.controller('transactionCtrl', function($scope, Wallet, Category, $state) {
+.controller('transactionCtrl', function($scope, Wallet, Category, $state, $stateParams) {
   $scope.category = Category;
   $scope.transaction = {};
+  $scope.typeName = ($stateParams.type == 'income') ? 'Income' : 'Expense';
   
   $scope.$watch('category', function() {
     $scope.transaction.category = $scope.category.selectedCategory;
@@ -80,6 +87,7 @@ angular.module('app.controllers', [])
     if (angular.isDefined(transaction)) {
       transaction.uid = "johndoe";
       transaction.timestamp = Date.now();
+      transaction.type = $stateParams.type;
       
       Wallet.addTransaction("walletidone", transaction)
           .then(function() {
