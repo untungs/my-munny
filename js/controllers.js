@@ -36,8 +36,8 @@ angular.module('app.controllers', [])
     for (var transaction in $scope.rawWalletData) {
       var transactionData = $scope.rawWalletData[transaction];
       
-      if (transactionData && transactionData.hasOwnProperty('timestamp')) {
-        var date = new Date(transactionData.timestamp).toLocaleDateString('id-ID', dateOption);
+      if (transactionData && transactionData.hasOwnProperty('dateTime')) {
+        var date = new Date(transactionData.dateTime).toLocaleDateString('id-ID', dateOption);
         var dateId = date.replace(/[\s]/g, '');
         var amount = transactionData.amount;
         
@@ -76,7 +76,9 @@ angular.module('app.controllers', [])
    
 .controller('transactionCtrl', function($scope, Wallet, Category, $state, $stateParams) {
   $scope.category = Category;
-  $scope.transaction = {};
+  $scope.transaction = {
+    "date": new Date()
+  };
   $scope.typeName = ($stateParams.type == 'income') ? 'Income' : 'Expense';
   
   $scope.$watch('category', function() {
@@ -86,7 +88,8 @@ angular.module('app.controllers', [])
   $scope.addTransaction = function(transaction) {
     if (angular.isDefined(transaction)) {
       transaction.uid = "johndoe";
-      transaction.timestamp = Date.now();
+      transaction.created = Date.now();
+      transaction.dateTime = transaction.date.getTime();
       transaction.type = $stateParams.type;
       
       Wallet.addTransaction("walletidone", transaction)
