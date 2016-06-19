@@ -76,10 +76,11 @@ angular.module('app.controllers', [])
 })
    
 .controller('transactionCtrl', function($scope, Wallet, Category, $state, $stateParams, $cordovaGeolocation) {
-  $scope.category = Category;
-  $scope.transaction = {
+  $scope.formData = {
     "date": new Date()
   };
+  $scope.category = Category;
+  $scope.transaction = {};
   $scope.typeName = ($stateParams.type == 'income') ? 'Income' : 'Expense';
   
   $scope.$watch('category', function() {
@@ -97,7 +98,7 @@ angular.module('app.controllers', [])
     if (angular.isDefined(transaction)) {
       transaction.uid = "johndoe";
       transaction.created = Date.now();
-      transaction.dateTime = transaction.date.getTime();
+      transaction.dateTime = $scope.formData.date.getTime();
       transaction.type = $stateParams.type;
       if (transaction.saveLocation) {
         transaction.location = location;
