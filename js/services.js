@@ -27,6 +27,13 @@ angular.module('app.services', [])
       return transactionRef.child(newKey).set(transaction);
     },
     
+    deleteTransaction: function(walletId, transactionId) {
+      var transactionRef = ref.child("wallet-transactions/" + walletId + "/" + transactionId);
+      var transactionObj = $firebaseObject(transactionRef);
+      
+      return transactionObj.$remove();
+    },
+    
     getTransaction: function(walletId, transactionId) {
       var transactionRef = ref.child("wallet-transactions/" + walletId + "/" + transactionId);
       return $firebaseObject(transactionRef);

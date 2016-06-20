@@ -151,7 +151,7 @@ angular.module('app.controllers', [])
   };
 })
       
-.controller('transactionDetailCtrl', function($scope, $stateParams, Wallet, Category, Utils) {
+.controller('transactionDetailCtrl', function($scope, $stateParams, $ionicPopup, $ionicHistory, Wallet, Category, Utils) {
   $scope.transaction = {};
   $scope.category = {};
   $scope.amount = {};
@@ -171,6 +171,24 @@ angular.module('app.controllers', [])
       console.error("Error:", error);
     }
   );
+  
+  $scope.deleteTransaction = function() {
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Delete Transaction',
+      template: 'Are you sure you want to delete this transaction?'
+    });
+    
+    confirmPopup.then(function(res) {
+      if (res) {
+        Wallet.deleteTransaction($stateParams.walletId, $stateParams.transactionId)
+            .then(function(ref) {
+              $ionicHistory.goBack();
+            }, function(error) {
+              console.log("Error:", error);
+            });
+      }
+    });
+  }
 })
    
 .controller('categoryCtrl', function($scope, $ionicHistory, Category) {
