@@ -1,4 +1,4 @@
-<ion-view title="Transaction Detail" id="page4">
+<ion-view title="Transaction Detail" id="page4" cache-view="false">
     <ion-content padding="true" class="has-header">
         <div class="list card">
             <ion-list>
@@ -25,7 +25,7 @@
                 <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
             </div>
         </div>
-        <a ui-sref="menu.editTransaction" class="button button-positive  button-block">Edit</a>
-        <button class=" button button-assertive  button-block">Delete</button>
+        <a ui-sref="menu.transactionEdit({walletId: 'walletidone', transactionId: transaction.key})" class="button button-positive button-block">Edit</a>
+        <button class="button button-assertive button-block">Delete</button>
     </ion-content>
 </ion-view>

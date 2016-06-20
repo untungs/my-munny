@@ -46,11 +46,11 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.editTransaction', {
-    url: '/edit',
+  .state('menu.transactionEdit', {
+    url: '/transactionEdit/:walletId/:transactionId',
     views: {
       'view-content': {
-        templateUrl: 'templates/editTransaction.html',
+        templateUrl: 'templates/transactionAdd.html',
         controller: 'editTransactionCtrl'
       }
     }

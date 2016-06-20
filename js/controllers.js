@@ -80,6 +80,7 @@ angular.module('app.controllers', [])
     "date": new Date()
   };
   $scope.category = Category;
+  $scope.category.selectedCategory = "";
   $scope.transaction = {};
   $scope.typeName = ($stateParams.type == 'income') ? 'Income' : 'Expense';
   
@@ -117,8 +118,33 @@ angular.module('app.controllers', [])
   };
 })
    
-.controller('editTransactionCtrl', function($scope) {
+.controller('editTransactionCtrl', function($scope, $stateParams, Wallet, Category, Utils) {
+  $scope.typeName;
+  $scope.formData = {};
+  $scope.transaction = {};
+  $scope.category = Category;
 
+  var syncTransaction = Wallet.getTransaction($stateParams.walletId, $stateParams.transactionId);
+  syncTransaction.$bindTo($scope, "transaction");
+  
+  $scope.$watch('category', function() {
+    $scope.transaction.category = $scope.category.selectedCategory;
+  }, true);
+
+  syncTransaction.$loaded(
+    function(data) {
+      $scope.formData.date = new Date($scope.transaction.dateTime);
+      $scope.typeName = ($scope.transaction.type == 'income') ? 'Edit Income' : 'Edit Expense';
+      $scope.category.selectedCategory = $scope.transaction.category;
+    },
+    function(error) {
+      console.error("Error:", error);
+    }
+  );
+  
+  $scope.getCategoryDetail = function(category) {
+    return Category.getCategoryDetail(category);
+  };
 })
       
 .controller('transactionDetailCtrl', function($scope, $stateParams, Wallet, Category, Utils) {
