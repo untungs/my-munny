@@ -1,15 +1,12 @@
 <ion-view title="About App" id="page13" class=" ">
     <ion-content padding="true" class="has-header">
         <div class="list card " id="aboutApp-card22">
-            <div class="item item-body " id="aboutApp-list-item-container6">
-                <p id="aboutApp-markdown6" style="margin-top:0px;color:#5794EE;" class=" ">
-                    <strong>My Munny v0.0.1</strong>
-                </p>
-            </div>
+            <div id="aboutApp-list-item-container6" ng-bind-html="about | hrefToJS"></div>
             <ion-item class="item-avatar" ng-repeat="(uid, member) in team" id="aboutApp-list-{{ uid }}">
                 <h2>{{ member.name }}</h2>
-                <p>{{ member.email }}</p>
-                <p>{{ member.role }}</p>
+                <p ng-show="member.nim">{{ member.nim }}</p>
+                <p ng-show="member.email">{{ member.email }}</p>
+                <p ng-show="member.role">{{ member.role }}</p>
             </ion-item>
         </div>
     </ion-content>

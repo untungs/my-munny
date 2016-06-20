@@ -237,7 +237,16 @@ angular.module('app.controllers', [])
 
 })
    
-.controller('aboutAppCtrl', function($scope, Team) {
+.controller('aboutAppCtrl', function($scope, Team, Config) {
+  $scope.about = "<a class='item positive'><strong>My Munny</strong></a>";
+  Config.getConfig().$loaded()
+    .then(function(data) {
+      $scope.about = "<a class='item positive' href='" + data.siteUrl + "'><strong>" + data.siteTitle + "</strong></a>";
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+    
   $scope.team = {};
   
   var syncObject = Team.getTeam();
