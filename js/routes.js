@@ -59,6 +59,7 @@ angular.module('app.routes', [])
   .state('menu', {
     url: '/menu',
     templateUrl: 'templates/menu.html',
+    controller: 'menuCtrl',
     abstract:true
   })
 

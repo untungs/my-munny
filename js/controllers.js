@@ -1,4 +1,14 @@
 angular.module('app.controllers', [])
+   
+.controller('menuCtrl', function($scope, Config) {
+  Config.getConfig().$loaded()
+    .then(function(data) {
+      $scope.feedbackLink = "<a class='item' href='" + data.feedbackUrl + "'>" + data.feedbackTitle + "</a>";
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+})
   
 .controller('myMunnyCtrl', function($scope, Wallet, Transactions, Category, Utils) {
   $scope.rawWalletData = {};

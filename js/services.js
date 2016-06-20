@@ -163,6 +163,26 @@ angular.module('app.services', [])
   return Team;
 })
 
+.factory('Config', function($firebaseObject) {
+  var Config = {
+    getConfig: function() {
+      var configRef = firebase.database().ref('config');
+      return $firebaseObject(configRef);
+    }
+  }
+  
+  return Config;
+})
+
+// https://gist.github.com/rewonc/e53ad3a9d6ca704d402e
+.filter('hrefToJS', function ($sce, $sanitize) {
+  return function (text) {
+    var regex = /href="([\S]+)"/g;
+    var newString = $sanitize(text).replace(regex, "onClick=\"window.open('$1', '_system', 'location=yes')\"");
+    return $sce.trustAsHtml(newString);
+  }
+})
+
 .factory('BlankFactory', [function(){
 
 }])
