@@ -130,6 +130,10 @@ angular.module('app.controllers', [])
   $scope.$watch('category', function() {
     $scope.transaction.category = $scope.category.selectedCategory;
   }, true);
+  
+  $scope.$watch('formData', function() {
+    $scope.transaction.dateTime = new Date($scope.formData.date).getTime();
+  }, true);
 
   syncTransaction.$loaded(
     function(data) {
