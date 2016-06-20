@@ -75,9 +75,10 @@ angular.module('app.controllers', [])
   $scope.utils = Utils;
 })
    
-.controller('transactionCtrl', function($scope, Wallet, Category, $state, $stateParams, $cordovaGeolocation) {
+.controller('transactionCtrl', function($scope, Wallet, Category, Geolocation, $state, $stateParams) {
   $scope.formData = {
-    "date": new Date()
+    "date": new Date(),
+    "saveLocation": false
   };
   $scope.category = Category;
   $scope.category.selectedCategory = "";
@@ -88,9 +89,8 @@ angular.module('app.controllers', [])
     $scope.transaction.category = $scope.category.selectedCategory;
   }, true);
   
-  var options = {timeout: 10000, enableHighAccuracy: true};
   var location = {};
-  $cordovaGeolocation.getCurrentPosition(options).then(function(position) {
+  Geolocation.getLocation().then(function(position) {
     location.latitude = position.coords.latitude;
     location.longitude = position.coords.longitude;
   });
@@ -101,7 +101,7 @@ angular.module('app.controllers', [])
       transaction.created = Date.now();
       transaction.dateTime = $scope.formData.date.getTime();
       transaction.type = $stateParams.type;
-      if (transaction.saveLocation) {
+      if ($scope.formData.saveLocation) {
         transaction.location = location;
       }
       
@@ -118,7 +118,7 @@ angular.module('app.controllers', [])
   };
 })
    
-.controller('editTransactionCtrl', function($scope, $stateParams, Wallet, Category, Utils) {
+.controller('editTransactionCtrl', function($scope, $stateParams, Wallet, Category, Geolocation, Utils) {
   $scope.typeName;
   $scope.formData = {};
   $scope.transaction = {};
@@ -127,17 +127,25 @@ angular.module('app.controllers', [])
   var syncTransaction = Wallet.getTransaction($stateParams.walletId, $stateParams.transactionId);
   syncTransaction.$bindTo($scope, "transaction");
   
+  var location = {};
+  Geolocation.getLocation().then(function(position) {
+    location.latitude = position.coords.latitude;
+    location.longitude = position.coords.longitude;
+  });
+  
   $scope.$watch('category', function() {
     $scope.transaction.category = $scope.category.selectedCategory;
   }, true);
   
   $scope.$watch('formData', function() {
     $scope.transaction.dateTime = new Date($scope.formData.date).getTime();
+    $scope.transaction.location = ($scope.formData.saveLocation) ? location : {};
   }, true);
 
   syncTransaction.$loaded(
     function(data) {
       $scope.formData.date = new Date($scope.transaction.dateTime);
+      $scope.formData.saveLocation = ($scope.transaction.location) ? true : false;
       $scope.typeName = ($scope.transaction.type == 'income') ? 'Edit Income' : 'Edit Expense';
       $scope.category.selectedCategory = $scope.transaction.category;
     },
@@ -156,6 +164,10 @@ angular.module('app.controllers', [])
   $scope.category = {};
   $scope.amount = {};
   $scope.dateString;
+  $scope.formData = {
+    "dateString": "",
+    "saveLocation": false
+  }
   
   var syncTransaction = Wallet.getTransaction($stateParams.walletId, $stateParams.transactionId);
   syncTransaction.$bindTo($scope, "transaction");
@@ -163,7 +175,8 @@ angular.module('app.controllers', [])
   syncTransaction.$loaded(
     function(data) {
       $scope.category = Category.getCategoryDetail($scope.transaction.category);
-      $scope.dateString = Utils.timeToDateString($scope.transaction.dateTime);
+      $scope.formData.dateString = Utils.timeToDateString($scope.transaction.dateTime);
+      $scope.formData.saveLocation = ($scope.transaction.location);
       $scope.amount.formatted = Utils.formatMoney($scope.transaction.amount);
       $scope.amount.color = Utils.isIncome(data) ? "balanced" : "assertive";
     },

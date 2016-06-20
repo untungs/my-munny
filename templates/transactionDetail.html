@@ -6,7 +6,7 @@
                     <h2>John Doe</h2>
                 </ion-item>
                 <ion-item class="item-icon-left">
-                    <i class="icon ion-android-calendar"></i>{{ dateString }}</ion-item>
+                    <i class="icon ion-android-calendar"></i>{{ formData.dateString }}</ion-item>
                 </ion-item>
                 <ion-item class="item-icon-left">
                     <i class="icon {{ category.icon }}"></i>{{ category.name }}</ion-item>
@@ -18,7 +18,7 @@
                     <p>{{ transaction.note }}</p>
                 </div>
             </ion-list>
-            <ion-item class="item-icon-left" ng-if="transaction.saveLocation" ui-sref="menu.location({walletId: 'walletidone', transactionId: transaction.key})">
+            <ion-item class="item-icon-left" ng-if="formData.saveLocation" ui-sref="menu.location({walletId: 'walletidone', transactionId: transaction.key})">
                 <i class="icon ion-location"></i>Location
             </ion-item>
             <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">

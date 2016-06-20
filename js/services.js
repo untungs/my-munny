@@ -63,6 +63,19 @@ angular.module('app.services', [])
   return Category;
 })
 
+.factory('Geolocation', function($cordovaGeolocation) {
+  var options = {timeout: 10000, enableHighAccuracy: true};
+  
+  var Geolocation = {
+    getLocation: function() {
+      return $cordovaGeolocation.getCurrentPosition(options);
+    }
+  };
+  
+  return Geolocation;
+  
+})
+
 .factory('Maps', function($cordovaGeolocation) {
   var map = {}
   var latLng = {};
