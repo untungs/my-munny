@@ -10,7 +10,7 @@ A simple hybrid application to track daily income and expense. Built with Ionic 
 
 Android APK
 
-- Android APK v0.0.1 - [https://goo.gl/S10lig](https://goo.gl/S10lig)
+- Android APK v0.0.2 - [https://goo.gl/bAm2Dg](https://goo.gl/bAm2Dg)
 
 ## Preview on iOS and Android - Ionic View
 
